@@ -1,3 +1,5 @@
 .area-container{
   display: flex;
+  position: relative;
+  margin-top: 80px;
 }

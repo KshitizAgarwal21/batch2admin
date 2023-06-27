@@ -1,8 +1,8 @@
 import React from "react";
 import Login from "../Pages/Login/Login";
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-export default function ProtectedLayout({ Children }) {
+import { Navigate, Outlet } from "react-router-dom";
+export default function ProtectedLayout() {
   const [loggedIn, setLoggedIn] = useState(true);
 
   useEffect(() => {
@@ -13,5 +13,5 @@ export default function ProtectedLayout({ Children }) {
     //localStorage.setItem("token", value);
     //localStorage.removeItem("token");
   }, []);
-  return <div>{loggedIn ? <Children /> : <Navigate to="/login" />}</div>;
+  return <div>{loggedIn ? <Outlet /> : <Navigate to="/login" />}</div>;
 }

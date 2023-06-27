@@ -7,16 +7,18 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import ProtectedLayout from "./Components/ProtectedLayout";
+import Layout from "./Components/Layout/Layout";
+import Help from "./Pages/Help";
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={<ProtectedLayout Children={Header} />}
-          ></Route>
-          <Route path="/login" element={<Login></Login>} />
+          <Route element={<ProtectedLayout />}>
+            <Route path="/" element={<Layout />}></Route>
+          </Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/help" element={<Help />}></Route>
         </Routes>
       </BrowserRouter>
     </>
