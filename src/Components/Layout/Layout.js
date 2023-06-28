@@ -1,5 +1,6 @@
 import React from "react";
-import Content from "../Content/Content";
+import { Outlet } from "react-router-dom";
+
 import Header from "../Header/Header";
 import Sidenav from "../Sidenav/Sidenav";
 
@@ -9,7 +10,10 @@ export default function Layout() {
       <Header />
       <div className="area-container">
         <Sidenav />
-        <Content />
+        <div style={{ width: "80%", padding: "25px" }}>
+          {" "}
+          <Outlet />
+        </div>
       </div>
     </div>
   );

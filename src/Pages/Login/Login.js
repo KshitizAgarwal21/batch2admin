@@ -44,14 +44,14 @@ export default function Login() {
             boxSizing: "border-box",
           }}
         >
-          <label>Username</label>{" "}
+          <label className="label">Username</label>{" "}
           <input
             type="text"
             name="username"
             className="custom-input"
             onChange={handleChange}
           ></input>
-          <label>Password</label>{" "}
+          <label className="label">Password</label>{" "}
           <input
             type="password"
             name="password"
