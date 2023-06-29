@@ -11,3 +11,22 @@
     color: #5e5c5c;
     font-size: 14px;
 }
+.MuiSelect-select{
+    padding: 5px !important;
+    color: #6E39CB !important;
+}
+.MuiInputLabel-root{
+    margin-top: -10px;
+    color: #6E39CB !important;
+}
+.MuiTabs-root{
+    background-color: #e8e8e8;
+    border-radius: 10px;
+    min-height: 30px !important;
+    height: 40px;
+}
+.MuiButtonBase-root{
+    color: #6E39CB !important;
+    font-size: 12px !important;
+    
+}

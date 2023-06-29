@@ -8,6 +8,9 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import "./home.css";
+import BoltIcon from "@mui/icons-material/Bolt";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 const data2 = [
   {
     name: "Page A",
@@ -105,6 +108,11 @@ export default function Home() {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+  const [value, setValue] = React.useState(0);
+
+  const handleChangeTab = (event, newValue) => {
+    setValue(newValue);
+  };
   return (
     <div>
       <Box
@@ -157,7 +165,7 @@ export default function Home() {
             boxSizing: "border-box",
           }}
         >
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
             <p>Sales this Week</p>
 
             <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -187,11 +195,83 @@ export default function Home() {
             height: "400px",
             backgroundColor: "#fff",
             borderRadius: "10px",
-            display: "flex",
             padding: "25px",
             boxSizing: "border-box",
           }}
-        ></Box>
+        >
+          <p>Sales Category</p>
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <div>
+              <BoltIcon />
+              <span style={{ verticalAlign: "super" }}>Electronics</span>
+            </div>
+            <span>500</span>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <div>
+              <BoltIcon />
+              <span style={{ verticalAlign: "super" }}>Kitchen Appliances</span>
+            </div>
+            <span>500</span>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <div>
+              <BoltIcon />
+              <span style={{ verticalAlign: "super" }}>Fashion</span>
+            </div>
+            <span>500</span>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <div>
+              <BoltIcon />
+              <span style={{ verticalAlign: "super" }}>Gardening</span>
+            </div>
+            <span>500</span>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <div>
+              <BoltIcon />
+              <span style={{ verticalAlign: "super" }}>Accesories</span>
+            </div>
+            <span>500</span>
+          </Box>
+        </Box>
       </div>
       <div
         style={{
@@ -211,7 +291,14 @@ export default function Home() {
             boxSizing: "border-box",
           }}
         >
-          <p>Sales this Week</p>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <p>Sales this Week</p>
+            <Tabs value={value} onChange={handleChangeTab} centered>
+              <Tab label="Item One" />
+              <Tab label="Item Two" />
+              <Tab label="Item Three" />
+            </Tabs>
+          </div>
           <br></br>
           <BarAreaChartComp data={data2} />
         </Box>
@@ -221,11 +308,70 @@ export default function Home() {
             height: "400px",
             backgroundColor: "#fff",
             borderRadius: "10px",
-            display: "flex",
+
             padding: "25px",
             boxSizing: "border-box",
           }}
-        ></Box>
+        >
+          <p>Trending Deals</p>
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <div>
+              <BoltIcon />
+              <span style={{ verticalAlign: "super" }}>Electronics</span>
+            </div>
+            <span>50% off</span>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <div>
+              <BoltIcon />
+              <span style={{ verticalAlign: "super" }}>Electronics</span>
+            </div>
+            <span>50% off</span>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <div>
+              <BoltIcon />
+              <span style={{ verticalAlign: "super" }}>Electronics</span>
+            </div>
+            <span>50% off</span>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <div>
+              <BoltIcon />
+              <span style={{ verticalAlign: "super" }}>Electronics</span>
+            </div>
+            <span>50% off</span>
+          </Box>
+        </Box>
       </div>
     </div>
   );

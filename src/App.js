@@ -10,6 +10,7 @@ import ProtectedLayout from "./Components/ProtectedLayout";
 import Layout from "./Components/Layout/Layout";
 import Help from "./Pages/Help";
 import Home from "./Pages/Home/Home";
+import AddProduct from "./Pages/AddProduct/AddProduct";
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
           <Route element={<ProtectedLayout />}>
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />}></Route>
+              <Route path="/addproduct" element={<AddProduct />}></Route>
             </Route>
           </Route>
           <Route path="/login" element={<Login />}></Route>

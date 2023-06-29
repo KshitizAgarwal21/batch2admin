@@ -44,3 +44,20 @@ code {
   font-weight: 700;
   font-size: 14px;
 }
+.row-form{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 30px;
+}
+.product-form-label{
+  display: block;
+}
+.product-form-input{
+  width: 300px;
+  height: 30px;
+  background-color: #F4F5F9;
+  border: 1px solid #cdcaca;
+  border-radius: 5px;
+  margin-top: 10px;
+}
