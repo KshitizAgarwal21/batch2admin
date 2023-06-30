@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
-
-export default function ProductInfoForm(props) {
+export default function ProductPricing(props) {
   const { productData, setProductData } = props;
+
   const handleChange = (e) => {
     setProductData((prev) => ({
       ...prev,
@@ -20,24 +20,24 @@ export default function ProductInfoForm(props) {
           padding: "50px",
         }}
       >
-        <h2>Product Information</h2>
+        <h2>Pricing</h2>
 
         <div className="row-form">
           <div>
             {" "}
-            <label className="product-form-label">Name</label>
+            <label className="product-form-label">Price</label>
             <input
-              type="text"
-              name="name"
+              type="number"
+              name="price"
               className="product-form-input"
               onChange={handleChange}
             ></input>
           </div>
           <div>
-            <label className="product-form-label">Weight</label>
+            <label className="product-form-label">Tags</label>
             <input
               type="text"
-              name="weight"
+              name="tags"
               className="product-form-input"
               onChange={handleChange}
             ></input>
@@ -46,38 +46,27 @@ export default function ProductInfoForm(props) {
         <div className="row-form">
           <div>
             {" "}
-            <label className="product-form-label">Sizes</label>
+            <label className="product-form-label">Currency</label>
             <select
               className="product-form-input"
               onChange={handleChange}
-              name="size"
+              name="currency"
             >
               <option>1</option>
               <option>2</option>
             </select>
           </div>
           <div>
-            <label className="product-form-label">Category</label>
+            <label className="product-form-label">SKU</label>
             <input
               type="text"
-              name="category"
+              name="sku"
               className="product-form-input"
               onChange={handleChange}
             ></input>
           </div>
         </div>
-        <div className="row-form">
-          <div>
-            {" "}
-            <label className="product-form-label">Description</label>
-            <input
-              type="text"
-              name="description"
-              className="product-form-input"
-              onChange={handleChange}
-            ></input>
-          </div>
-        </div>
+        <div className="row-form"></div>
       </Box>
     </div>
   );

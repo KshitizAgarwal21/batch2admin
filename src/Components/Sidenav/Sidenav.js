@@ -30,7 +30,10 @@ export default function Sidenav() {
               <li>Add Product</li>
             </Link>
             <li>Edit Product</li>
-            <li>Product List</li>
+            <Link to="/productlist">
+              {" "}
+              <li>Product List</li>
+            </Link>
           </ul>
         </li>
       </ul>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -6,11 +6,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ProductInfoForm from "./ProductInfoForm";
+import ProductPricing from "./ProductPricing";
+import ProductMedia from "./ProductMedia";
 const steps = ["Product Info", "Media", "Pricing"];
 export default function AddProduct() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-
+  const [productData, setProductData] = useState({});
   const isStepOptional = (step) => {
     return step === 1;
   };
@@ -74,7 +76,13 @@ export default function AddProduct() {
         {activeStep === steps.length ? (
           <React.Fragment>
             <Typography sx={{ mt: 2, mb: 1 }}>
-              All steps completed - you&apos;re finished
+              {Object.keys(productData).map((elem, index) => {
+                return (
+                  <>
+                    {elem}:{productData[elem]}
+                  </>
+                );
+              })}
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Box sx={{ flex: "1 1 auto" }} />
@@ -86,11 +94,28 @@ export default function AddProduct() {
             <Typography sx={{ mt: 2, mb: 1 }}>
               {activeStep == 0 && (
                 <>
-                  <ProductInfoForm />
+                  <ProductInfoForm
+                    productData={productData}
+                    setProductData={setProductData}
+                  />
                 </>
               )}
-              {activeStep == 1 && <>add media form</>}
-              {activeStep == 2 && <>add pricing form</>}
+              {activeStep == 1 && (
+                <>
+                  <ProductMedia
+                    productData={productData}
+                    setProductData={setProductData}
+                  />
+                </>
+              )}
+              {activeStep == 2 && (
+                <>
+                  <ProductPricing
+                    productData={productData}
+                    setProductData={setProductData}
+                  />
+                </>
+              )}
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
