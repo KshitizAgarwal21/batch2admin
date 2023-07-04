@@ -100,16 +100,46 @@ export default function ProductList() {
       </TableContainer>
       {numofpages > 5
         ? arr.slice(0, 3).map((elem) => {
-            return <>{elem}&nbsp; </>;
+            return (
+              <>
+                <span
+                  onClick={() => {
+                    setCurrentPage(elem);
+                  }}
+                >
+                  {elem}&nbsp;
+                </span>{" "}
+              </>
+            );
           })
         : arr.map((elem) => {
-            return <>{elem}&nbsp; </>;
+            return (
+              <>
+                <span
+                  onClick={() => {
+                    setCurrentPage(elem);
+                  }}
+                >
+                  {elem}&nbsp;
+                </span>{" "}
+              </>
+            );
           })}
 
       {numofpages > 5 ? <>...</> : ""}
       {numofpages > 5
         ? arr.slice(numofpages - 2, numofpages).map((elem) => {
-            return <>{elem}&nbsp; </>;
+            return (
+              <>
+                <span
+                  onClick={() => {
+                    setCurrentPage(elem);
+                  }}
+                >
+                  {elem}&nbsp;
+                </span>{" "}
+              </>
+            );
           })
         : arr.map((elem) => {
             return "";
