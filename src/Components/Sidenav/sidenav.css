@@ -38,4 +38,5 @@ margin-top: 10px;
 a{
     text-decoration: none;
     color: #6e39cb;
+    padding-left: 0 !important;
 }

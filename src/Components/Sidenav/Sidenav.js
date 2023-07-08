@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./sidenav.css";
 import HomeIcon from "@mui/icons-material/Home";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 export default function Sidenav() {
-  const [isExpanded, setExpanded] = useState(false);
+  const [isExpanded1, setExpanded1] = useState(false);
+  const [isExpanded2, setExpanded2] = useState(false);
   const expand = () => {
-    setExpanded(!isExpanded);
+    setExpanded1(!isExpanded1);
   };
   return (
     <div className="sidenav-content">
@@ -15,25 +16,62 @@ export default function Sidenav() {
             <HomeIcon />
             Home
           </span>
-          <ul className={isExpanded ? "sub-item active" : "sub-item"}>
-            <li>Dashboard</li>
+          <ul className={isExpanded1 ? "sub-item active" : "sub-item"}>
+            <NavLink
+              to="/"
+              style={({ isActive, isPending }) => {
+                return {
+                  fontWeight: isActive ? "bold" : "",
+                  color: isPending ? "red" : "black",
+                };
+              }}
+            >
+              <li>Dashboard</li>
+            </NavLink>
             <li>Analytics</li>
           </ul>
         </li>
         <li>
-          <span onClick={expand}>
+          <span onClick={() => setExpanded2(!isExpanded2)}>
             <HomeIcon />
             E-Commerce
           </span>
-          <ul className={isExpanded ? "sub-item active" : "sub-item"}>
-            <Link to="/addproduct">
+          <ul className={isExpanded2 ? "sub-item active" : "sub-item"}>
+            <NavLink
+              to="/addproduct"
+              style={({ isActive, isPending }) => {
+                return {
+                  fontWeight: isActive ? "bold" : "",
+                  color: isActive ? "purple" : "black",
+                };
+              }}
+            >
               <li>Add Product</li>
-            </Link>
-            <li>Edit Product</li>
-            <Link to="/productlist">
+            </NavLink>
+            {/* <NavLink
+              to="/edit"
+              style={({ isActive, isPending }) => {
+                return {
+                  fontWeight: isActive ? "bold" : "",
+                  color: isActive ? "purple" : "black",
+                };
+              }}
+            >
+              {" "}
+              <li>Edit Product</li>
+            </NavLink> */}
+            <NavLink
+              to="/productlist"
+              style={({ isActive, isPending }) => {
+                return {
+                  fontWeight: isActive ? "bold" : "",
+                  color: isActive ? "purple" : "black",
+                };
+              }}
+            >
               {" "}
               <li>Product List</li>
-            </Link>
+            </NavLink>
           </ul>
         </li>
       </ul>

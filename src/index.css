@@ -101,3 +101,15 @@ code {
   vertical-align: middle;
   margin-right: 10px;
 }
+
+.round-dot{
+  width: 10px;
+  height: 10px;
+ 
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 7px;
+}
+.MuiTableCell-root{
+  text-align: left !important;
+}

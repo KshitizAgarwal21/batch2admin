@@ -12,7 +12,42 @@ import axios from "axios";
 import { Box } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
 
-export default function ProductList(props) {
+const orders = [
+  {
+    Customer: "David",
+    Product: "BKLGO Hoodie",
+    ID: "10",
+    Status: "12344",
+    Revenue: "Paid",
+    Date: "22-03-2023",
+  },
+  {
+    Customer: "David",
+    Product: "BKLGO Hoodie",
+    ID: "10",
+    Status: "12344",
+    Revenue: "Paid",
+    Date: "22-03-2023",
+  },
+  {
+    Customer: "David",
+    Product: "BKLGO Hoodie",
+    ID: "10",
+    Status: "12344",
+    Revenue: "Cancelled",
+    Date: "22-03-2023",
+  },
+  {
+    Customer: "David",
+    Product: "BKLGO Hoodie",
+    ID: "10",
+    Status: "12344",
+    Revenue: "Refunded",
+    Date: "22-03-2023",
+  },
+];
+export default function OrderList(props) {
+  const [pillColor, setColor] = useState();
   const { searchItem } = useOutletContext();
   const [fullData, setData] = useState();
   const [products, setProducts] = useState([]);
@@ -38,10 +73,10 @@ export default function ProductList(props) {
   };
 
   const getProducts = async () => {
-    const result = await axios.get("https://fakestoreapi.com/products");
+    // const result = await axios.get("https://fakestoreapi.com/products");
 
-    setData(result.data);
-    setProducts(result.data);
+    setData(orders);
+    setProducts(orders);
   };
   useEffect(() => {
     if (searchItem == "") {
@@ -72,24 +107,24 @@ export default function ProductList(props) {
   }, []);
   return (
     <div>
-      <h2 style={{ color: "#6e39cb" }}>Product List</h2>
+      <h2 style={{ color: "#6e39cb" }}>Order List</h2>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Product</TableCell>
-              <TableCell align="right">Category</TableCell>
-              <TableCell align="right">Quantity</TableCell>
-              <TableCell align="right">SKU</TableCell>
-              <TableCell align="right">Price</TableCell>
-              <TableCell align="right">Edit</TableCell>
+              <TableCell>Customer</TableCell>
+              <TableCell align="right">Product</TableCell>
+              <TableCell align="right">Status</TableCell>
+              <TableCell align="right">Revenue</TableCell>
+              <TableCell align="right">Date</TableCell>
+              {/* <TableCell align="right">Edit</TableCell> */}
             </TableRow>
           </TableHead>
 
           <TableBody>
             {displayItems?.map((row) => (
               <TableRow
-                key={row.title}
+                key={row.ID}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
@@ -98,20 +133,33 @@ export default function ProductList(props) {
                   <>
                     <TableCell component="th" scope="row">
                       <img src={row.image} className="product-img"></img>{" "}
-                      {row.title}
+                      {row.Customer}
                     </TableCell>
-                    <TableCell align="right">{row.category}</TableCell>
-                    <TableCell align="right">{row.rating.count}</TableCell>
-                    <TableCell align="right">{row.id}</TableCell>
-                    <TableCell align="right">{row.price}</TableCell>
+                    <TableCell align="right">{row.Product}</TableCell>
+                    <TableCell align="right">{row.Status}</TableCell>
                     <TableCell align="right">
+                      <span
+                        className="round-dot"
+                        style={{
+                          background:
+                            row.Revenue == "Paid"
+                              ? "green"
+                              : row.Revenue == "Refunded"
+                              ? "blue"
+                              : "red",
+                        }}
+                      ></span>
+                      {row.Revenue}
+                    </TableCell>
+                    <TableCell align="right">{row.Date}</TableCell>
+                    {/* <TableCell align="right">
                       <button
                         className="edit-btn"
                         onClick={() => navigateEdit(row)}
                       >
                         Edit
                       </button>
-                    </TableCell>{" "}
+                    </TableCell>{" "} */}
                   </>
                 )}
               </TableRow>

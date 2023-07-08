@@ -13,6 +13,7 @@ import Home from "./Pages/Home/Home";
 import AddProduct from "./Pages/AddProduct/AddProduct";
 import ProductList from "./Pages/ProductList/ProductList";
 import EditProduct from "./Pages/EditProduct/EditProduct";
+import OrderList from "./Pages/OrderList/OrderList";
 function App() {
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
               <Route path="/" element={<Home />}></Route>
               <Route path="/addproduct" element={<AddProduct />}></Route>
               <Route path="/productlist" element={<ProductList />}></Route>
+              <Route path="/orderlist" element={<OrderList />}></Route>
               <Route path="/edit" element={<EditProduct />}></Route>
             </Route>
           </Route>

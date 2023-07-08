@@ -1,7 +1,10 @@
 import React from "react";
 import "./header.css";
 import microwave from "../../Assets/microwave.jpeg";
-export default function Header() {
+export default function Header(props) {
+  const handleChange = (e) => {
+    props.setSearchItem(e.target.value);
+  };
   return (
     <div>
       <nav className="header">
@@ -11,6 +14,7 @@ export default function Header() {
             type="text"
             className="search-input"
             placeholder="Search anything here..."
+            onChange={handleChange}
           ></input>
         </div>
         <div>
