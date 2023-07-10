@@ -4,9 +4,35 @@ import "./ordersummary.css";
 import { useLocation } from "react-router-dom";
 import microwave from "../../Assets/microwave.jpeg";
 import card from "../../Assets/card.png";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
 export default function OrderSummary() {
   const data = useLocation();
   const { state } = data;
+  const downloadInvoice = () => {
+    html2canvas(document.getElementById("invoice"), {
+      // width: 1440,
+      // height: 1200,
+      scale: 1,
+    }).then((canvas) => {
+      var imgData = canvas.toDataURL("image/png");
+      var doc = new jsPDF();
+      doc.addImage(imgData, "PNG", 10, 10);
+      doc.save("invoice.pdf");
+    });
+    html2canvas(document.getElementById("summary"), {
+      // width: 1440,
+      // height: 1200,
+      scale: 1,
+    }).then((canvas) => {
+      var imgData = canvas.toDataURL("image/png");
+      var doc = new jsPDF();
+      doc.addImage(imgData, "PNG", 10, 10);
+      doc.save("summary.pdf");
+    });
+  };
+
   return (
     <div>
       <h2 style={{ color: "#6e39cb" }}>Order Summary</h2>
@@ -33,7 +59,9 @@ export default function OrderSummary() {
               Code: <span>XAe</span>
             </p>
           </Box>
-          <button className="invoice">Invoice</button>
+          <button className="invoice" onClick={downloadInvoice}>
+            Invoice
+          </button>
         </div>
         <div className="section2">
           <Box sx={{ width: "40%", height: "auto" }}>
@@ -62,6 +90,7 @@ export default function OrderSummary() {
           <Box sx={{ width: "50%", height: "auto" }}>
             <h3 style={{ marginTop: "0" }}>Billing Information</h3>
             <Box
+              id="invoice"
               sx={{
                 border: "1px solid #e8e8e8",
                 width: "100%",
@@ -109,6 +138,7 @@ export default function OrderSummary() {
           <Box sx={{ width: "50%", height: "auto" }}>
             <h3 style={{ marginTop: "0" }}>Order Summary</h3>
             <Box
+              id="summary"
               sx={{
                 border: "1px solid #e8e8e8",
                 width: "100%",
