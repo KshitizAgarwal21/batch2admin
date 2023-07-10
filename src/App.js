@@ -14,6 +14,7 @@ import AddProduct from "./Pages/AddProduct/AddProduct";
 import ProductList from "./Pages/ProductList/ProductList";
 import EditProduct from "./Pages/EditProduct/EditProduct";
 import OrderList from "./Pages/OrderList/OrderList";
+import OrderSummary from "./Pages/OrderSummary/OrderSummary";
 function App() {
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
               <Route path="/productlist" element={<ProductList />}></Route>
               <Route path="/orderlist" element={<OrderList />}></Route>
               <Route path="/edit" element={<EditProduct />}></Route>
+              <Route path="/ordersummary" element={<OrderSummary />}></Route>
             </Route>
           </Route>
           <Route path="/login" element={<Login />}></Route>

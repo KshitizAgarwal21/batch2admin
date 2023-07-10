@@ -28,7 +28,17 @@ export default function Sidenav() {
             >
               <li>Dashboard</li>
             </NavLink>
-            <li>Analytics</li>
+            <NavLink
+              to="/orderlist"
+              style={({ isActive, isPending }) => {
+                return {
+                  fontWeight: isActive ? "bold" : "",
+                  color: isPending ? "red" : "black",
+                };
+              }}
+            >
+              <li>Order List</li>
+            </NavLink>
           </ul>
         </li>
         <li>

@@ -1,0 +1,42 @@
+.section1{
+    display: flex;
+}
+.section2{
+    display: flex;
+    justify-content: space-between;
+}
+.section2 img{
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+}
+.section3{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.section3 img{
+    width: 40px;
+    height: 20px;
+  vertical-align: sub;
+    display: inline-block;
+
+}
+.section1-p{
+    font-size: 12px;
+}
+.invoice{
+    width: 20%;
+    background-color: #6E39CB;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+}
+.summary{
+    width: 60%;
+}
+.rating{
+    width: 30%;
+}

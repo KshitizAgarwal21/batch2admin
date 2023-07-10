@@ -78,6 +78,9 @@ export default function OrderList(props) {
     setData(orders);
     setProducts(orders);
   };
+  const orderSummary = (item) => {
+    navigate("/ordersummary", { state: item });
+  };
   useEffect(() => {
     if (searchItem == "") {
       setProducts(fullData);
@@ -126,8 +129,10 @@ export default function OrderList(props) {
               <TableRow
                 key={row.ID}
                 sx={{
+                  cursor: "pointer",
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
+                onClick={() => orderSummary(row)}
               >
                 {displayItems && (
                   <>

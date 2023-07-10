@@ -19,7 +19,7 @@ export default function ProductList(props) {
   const navigate = useNavigate();
   const [ipp, setIpp] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+
   const indexOfLastItem = currentPage * ipp;
   const indexOfFirsttItem = indexOfLastItem - ipp;
 
@@ -42,6 +42,10 @@ export default function ProductList(props) {
 
     setData(result.data);
     setProducts(result.data);
+  };
+  const handleItemsPerPageChange = (e) => {
+    setIpp(e.target.value);
+    setCurrentPage(1);
   };
   useEffect(() => {
     if (searchItem == "") {
@@ -172,12 +176,7 @@ export default function ProductList(props) {
             return "";
           })}
       <p>Items per page:</p>
-      <select
-        onChange={(e) => {
-          setIpp(e.target.value);
-          setCurrentPage(1);
-        }}
-      >
+      <select onChange={handleItemsPerPageChange} value={ipp}>
         <option value={2}>2</option>
         <option value={5}>5</option>
         <option value={10}>10</option>
