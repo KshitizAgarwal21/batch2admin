@@ -38,7 +38,9 @@ export default function ProductList(props) {
   };
 
   const getProducts = async () => {
-    const result = await axios.get("https://fakestoreapi.com/products");
+    const result = await axios.post("http://localhost:8080/getproductlist", {
+      name: "Harsh",
+    });
 
     setData(result.data);
     setProducts(result.data);
@@ -93,7 +95,7 @@ export default function ProductList(props) {
           <TableBody>
             {displayItems?.map((row) => (
               <TableRow
-                key={row.title}
+                key={row.id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
@@ -101,7 +103,7 @@ export default function ProductList(props) {
                 {displayItems && (
                   <>
                     <TableCell component="th" scope="row">
-                      <img src={row.image} className="product-img"></img>{" "}
+                      <img src={row.image} className="product-img"></img>
                       {row.title}
                     </TableCell>
                     <TableCell align="right">{row.category}</TableCell>
@@ -115,7 +117,7 @@ export default function ProductList(props) {
                       >
                         Edit
                       </button>
-                    </TableCell>{" "}
+                    </TableCell>
                   </>
                 )}
               </TableRow>
@@ -134,12 +136,13 @@ export default function ProductList(props) {
             return (
               <>
                 <span
+                  key={elem}
                   onClick={() => {
                     setCurrentPage(elem);
                   }}
                 >
                   {elem}&nbsp;
-                </span>{" "}
+                </span>
               </>
             );
           })
@@ -147,12 +150,13 @@ export default function ProductList(props) {
             return (
               <>
                 <span
+                  key={elem}
                   onClick={() => {
                     setCurrentPage(elem);
                   }}
                 >
                   {elem}&nbsp;
-                </span>{" "}
+                </span>
               </>
             );
           })}
@@ -163,17 +167,18 @@ export default function ProductList(props) {
             return (
               <>
                 <span
+                  key={elem}
                   onClick={() => {
                     setCurrentPage(elem);
                   }}
                 >
                   {elem}&nbsp;
-                </span>{" "}
+                </span>
               </>
             );
           })
         : arr.map((elem) => {
-            return "";
+            return <span key={elem}></span>;
           })}
       <p>Items per page:</p>
       <select onChange={handleItemsPerPageChange} value={ipp}>

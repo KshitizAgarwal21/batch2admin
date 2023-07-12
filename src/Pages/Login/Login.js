@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import loginimg from "../../Assets/login.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function Login() {
   const [formData, setFormData] = useState({});
   const [errorMsg, setErrorMsg] = useState("");
@@ -9,16 +10,34 @@ export default function Login() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const navigate = useNavigate();
-  const login = () => {
-    if (formData.username == "test") {
-      if (formData.password == "test") {
+  const login = async () => {
+    // if (formData.username == "test") {
+    //   if (formData.password == "test") {
+    //     localStorage.setItem("token", "testandtest");
+    //     navigate("/");
+    //   } else {
+    //     setErrorMsg("Username or password is incorrect");
+    //   }
+    // } else {
+    //   setErrorMsg("User is not registered");
+    // }
+    try {
+      const result = await axios.post("http://localhost:8080/login", formData);
+      console.log(result.data);
+      console.log(result.status);
+      if (result.status == 200) {
         localStorage.setItem("token", "testandtest");
         navigate("/");
-      } else {
-        setErrorMsg("Username or password is incorrect");
       }
-    } else {
-      setErrorMsg("User is not registered");
+    } catch (e) {
+      console.log(e);
+      if (e.response.status == 403) {
+        alert(e.response.data.msg);
+      } else if (e.response.status == 401) {
+        alert(e.response.data.msg);
+      } else {
+        alert(e.response.data.msg);
+      }
     }
   };
   return (

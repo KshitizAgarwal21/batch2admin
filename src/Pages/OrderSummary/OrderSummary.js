@@ -11,26 +11,26 @@ export default function OrderSummary() {
   const data = useLocation();
   const { state } = data;
   const downloadInvoice = () => {
-    html2canvas(document.getElementById("invoice"), {
-      // width: 1440,
-      // height: 1200,
+    document.getElementById("myinvoice").style.display = "block";
+    html2canvas(document.getElementById("myinvoice"), {
       scale: 1,
     }).then((canvas) => {
       var imgData = canvas.toDataURL("image/png");
       var doc = new jsPDF();
       doc.addImage(imgData, "PNG", 10, 10);
       doc.save("invoice.pdf");
+      document.getElementById("myinvoice").style.display = "none";
     });
-    html2canvas(document.getElementById("summary"), {
-      // width: 1440,
-      // height: 1200,
-      scale: 1,
-    }).then((canvas) => {
-      var imgData = canvas.toDataURL("image/png");
-      var doc = new jsPDF();
-      doc.addImage(imgData, "PNG", 10, 10);
-      doc.save("summary.pdf");
-    });
+    // html2canvas(document.getElementById("summary"), {
+    //   // width: 1440,
+    //   // height: 1200,
+    //   scale: 1,
+    // }).then((canvas) => {
+    //   var imgData = canvas.toDataURL("image/png");
+    //   var doc = new jsPDF();
+    //   doc.addImage(imgData, "PNG", 10, 10);
+    //   doc.save("summary.pdf");
+    // });
   };
 
   return (
@@ -172,6 +172,10 @@ export default function OrderSummary() {
           </Box>
         </div>
       </Box>
+
+      <div className="myinvoice" id="myinvoice">
+        Data to be printed
+      </div>
     </div>
   );
 }
