@@ -26,7 +26,7 @@ export default function Login() {
       console.log(result.data);
       console.log(result.status);
       if (result.status == 200) {
-        localStorage.setItem("token", "testandtest");
+        localStorage.setItem("token", result.data.token);
         navigate("/");
       }
     } catch (e) {

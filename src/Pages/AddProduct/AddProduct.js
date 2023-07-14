@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import ProductInfoForm from "./ProductInfoForm";
 import ProductPricing from "./ProductPricing";
 import ProductMedia from "./ProductMedia";
+import axios from "axios";
 const steps = ["Product Info", "Media", "Pricing"];
 export default function AddProduct() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -21,7 +22,7 @@ export default function AddProduct() {
     return skipped.has(step);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
@@ -30,6 +31,21 @@ export default function AddProduct() {
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
+    if (activeStep == 2) {
+      try {
+        const result = await axios.post("http://localhost:8080/addproduct", {
+          productData,
+          token: localStorage.getItem("token"),
+        });
+        if (result.status == 200) {
+          console.log(result.data);
+        }
+      } catch (e) {
+        if (e.response.status == 500) {
+          alert(e.response.data.msg);
+        }
+      }
+    }
   };
 
   const handleBack = () => {
