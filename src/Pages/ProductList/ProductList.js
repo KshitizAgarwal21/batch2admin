@@ -8,9 +8,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
 import { LinearProgress } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { Box } from "@mui/material";
+
 import { useOutletContext } from "react-router-dom";
+import { ProductsList } from "../../redux/ProductList/action";
 
 export default function ProductList(props) {
   const { searchItem } = useOutletContext();
@@ -25,6 +27,7 @@ export default function ProductList(props) {
 
   const numofpages = Math.ceil(products.length / ipp);
   var displayItems = products.slice(indexOfFirsttItem, indexOfLastItem);
+
   //page -> 1
   // indexoflastitem = 1*5 =5
   //indexoffirstitem = 5-5 = 0
@@ -36,15 +39,17 @@ export default function ProductList(props) {
   const navigateEdit = (item) => {
     navigate("/edit", { state: item });
   };
-
+  const dispatch = useDispatch();
+  const productData = useSelector((state) => state.ProductsList.products);
+  const loading = useSelector((state) => state.ProductsList.loading);
   const getProducts = async () => {
     const result = await axios.post("http://localhost:8080/getproductlist", {
       name: "Harsh",
     });
-
     setData(result.data);
     setProducts(result.data);
   };
+
   const handleItemsPerPageChange = (e) => {
     setIpp(e.target.value);
     setCurrentPage(1);
@@ -75,7 +80,9 @@ export default function ProductList(props) {
   const arr = Array.from({ length: numofpages }, (_, i) => i + 1);
   useEffect(() => {
     getProducts();
+    // dispatch(ProductsList());
   }, []);
+  // useEffect(() => {}, [productData]);
   return (
     <div>
       <h2 style={{ color: "#6e39cb" }}>Product List</h2>
@@ -93,39 +100,40 @@ export default function ProductList(props) {
           </TableHead>
 
           <TableBody>
-            {displayItems?.map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                }}
-              >
-                {displayItems && (
-                  <>
-                    <TableCell component="th" scope="row">
-                      <img src={row.image} className="product-img"></img>
-                      {row.title}
-                    </TableCell>
-                    <TableCell align="right">{row.category}</TableCell>
-                    <TableCell align="right">{row.rating.count}</TableCell>
-                    <TableCell align="right">{row.id}</TableCell>
-                    <TableCell align="right">{row.price}</TableCell>
-                    <TableCell align="right">
-                      <button
-                        className="edit-btn"
-                        onClick={() => navigateEdit(row)}
-                      >
-                        Edit
-                      </button>
-                    </TableCell>
-                  </>
-                )}
-              </TableRow>
-            ))}
+            {!loading &&
+              displayItems?.map((row) => (
+                <TableRow
+                  key={row.id}
+                  sx={{
+                    "&:last-child td, &:last-child th": { border: 0 },
+                  }}
+                >
+                  {!loading && displayItems && (
+                    <>
+                      <TableCell component="th" scope="row">
+                        <img src={row.image} className="product-img"></img>
+                        {row.title}
+                      </TableCell>
+                      <TableCell align="right">{row.category}</TableCell>
+                      <TableCell align="right">{row.rating.count}</TableCell>
+                      <TableCell align="right">{row.id}</TableCell>
+                      <TableCell align="right">{row.price}</TableCell>
+                      <TableCell align="right">
+                        <button
+                          className="edit-btn"
+                          onClick={() => navigateEdit(row)}
+                        >
+                          Edit
+                        </button>
+                      </TableCell>
+                    </>
+                  )}
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
         {displayItems.length == 0 && searchItem != null && <>No items found</>}
-        {products.length == 0 && searchItem == null && (
+        {loading && searchItem == null && (
           <>
             <LinearProgress />
           </>

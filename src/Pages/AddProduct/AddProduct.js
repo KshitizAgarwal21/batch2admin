@@ -9,6 +9,7 @@ import ProductInfoForm from "./ProductInfoForm";
 import ProductPricing from "./ProductPricing";
 import ProductMedia from "./ProductMedia";
 import axios from "axios";
+import "../../utils/interceptor";
 const steps = ["Product Info", "Media", "Pricing"];
 export default function AddProduct() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -35,7 +36,6 @@ export default function AddProduct() {
       try {
         const result = await axios.post("http://localhost:8080/addproduct", {
           productData,
-          token: localStorage.getItem("token"),
         });
         if (result.status == 200) {
           console.log(result.data);
