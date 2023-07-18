@@ -43,9 +43,12 @@ export default function ProductList(props) {
   const productData = useSelector((state) => state.ProductsList.products);
   const loading = useSelector((state) => state.ProductsList.loading);
   const getProducts = async () => {
-    const result = await axios.post("http://localhost:8080/getproductlist", {
-      name: "Harsh",
-    });
+    const result = await axios.post(
+      "http://localhost:8080/products/getproductlist",
+      {
+        name: "Harsh",
+      }
+    );
     setData(result.data);
     setProducts(result.data);
   };

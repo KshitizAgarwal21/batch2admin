@@ -22,7 +22,10 @@ export default function Login() {
     //   setErrorMsg("User is not registered");
     // }
     try {
-      const result = await axios.post("http://localhost:8080/login", formData);
+      const result = await axios.post(
+        "http://localhost:8080/login/loginapi",
+        formData
+      );
       console.log(result.data);
       console.log(result.status);
       if (result.status == 200) {
