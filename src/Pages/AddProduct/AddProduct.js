@@ -14,7 +14,8 @@ const steps = ["Product Info", "Media", "Pricing"];
 export default function AddProduct() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  const [productData, setProductData] = useState({});
+  const [productData, setProductData] = useState({}); //all the text/numerical data of the product
+  const [mediaData, setMediaData] = useState(); // all the media data of the product
   const isStepOptional = (step) => {
     return step === 1;
   };
@@ -34,11 +35,25 @@ export default function AddProduct() {
     setSkipped(newSkipped);
     if (activeStep == 2) {
       try {
-        const result = await axios.post("http://localhost:8080/addproduct", {
-          productData,
-        });
+        const result = await axios.post(
+          "http://localhost:8080/products/addproductmedia",
+          mediaData
+        );
         if (result.status == 200) {
           console.log(result.data);
+          try {
+            const result = await axios.post(
+              "http://localhost:8080/products/addproductdata",
+              productData
+            );
+            if (result.status == 200) {
+              console.log(result.data);
+            }
+          } catch (e) {
+            if (e.response.status == 500) {
+              alert(e.response.data.msg);
+            }
+          }
         }
       } catch (e) {
         if (e.response.status == 500) {
@@ -121,6 +136,8 @@ export default function AddProduct() {
                   <ProductMedia
                     productData={productData}
                     setProductData={setProductData}
+                    mediaData={mediaData}
+                    setMediaData={setMediaData}
                   />
                 </>
               )}
