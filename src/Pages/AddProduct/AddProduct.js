@@ -41,6 +41,7 @@ export default function AddProduct() {
         );
         if (result.status == 200) {
           console.log(result.data);
+          productData.imageUrl = result.data.path;
           try {
             const result = await axios.post(
               "http://localhost:8080/products/addproductdata",
