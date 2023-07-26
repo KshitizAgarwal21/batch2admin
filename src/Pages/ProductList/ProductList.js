@@ -16,7 +16,7 @@ import { ProductsList } from "../../redux/ProductList/action";
 
 export default function ProductList(props) {
   const { searchItem } = useOutletContext();
-  const [fullData, setData] = useState();
+  const [fullData, setData] = useState([]);
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const [ipp, setIpp] = useState(5);
@@ -44,10 +44,7 @@ export default function ProductList(props) {
   const loading = useSelector((state) => state.ProductsList.loading);
   const getProducts = async () => {
     const result = await axios.post(
-      "http://localhost:8080/products/getproductlist",
-      {
-        name: "Harsh",
-      }
+      "http://localhost:8080/products/getproductlist"
     );
     setData(result.data);
     setProducts(result.data);
@@ -61,15 +58,43 @@ export default function ProductList(props) {
     if (searchItem == "") {
       setProducts(fullData);
     } else {
+      console.log(searchItem);
       setCurrentPage(1);
 
-      setProducts(
-        displayItems.filter((elem) => {
-          for (let key in elem) {
-            if (elem[key].toString().toLowerCase().includes(searchItem)) {
-              return elem;
+      const loopOverObj = (obj, initial) => {
+        for (let key in obj) {
+          if (typeof obj[key] == "object") {
+            console.log("comes here");
+
+            loopOverObj(obj[key], initial);
+          } else {
+            if (obj[key].toString().toLowerCase().includes(searchItem)) {
+              console.log(initial);
+              return initial;
             }
           }
+        }
+      };
+      setProducts(
+        fullData.filter((elem) => {
+          for (let key in elem) {
+            if (typeof elem[key] == "object") {
+              console.log("comes here");
+              for (let i in elem[key]) {
+                if (
+                  elem[key][i].toString().toLowerCase().includes(searchItem)
+                ) {
+                  return elem;
+                }
+              }
+            } else {
+              if (elem[key].toString().toLowerCase().includes(searchItem)) {
+                return elem;
+              }
+            }
+          }
+
+          // return loopOverObj(elem, elem);
         })
       );
 
@@ -114,13 +139,20 @@ export default function ProductList(props) {
                   {!loading && displayItems && (
                     <>
                       <TableCell component="th" scope="row">
-                        <img src={row.image} className="product-img"></img>
-                        {row.title}
+                        <img
+                          src={
+                            "../../uploads/myFile-1690300204062-518072315.jpeg"
+                          }
+                          className="product-img"
+                        ></img>
+                        {row.Name}
                       </TableCell>
-                      <TableCell align="right">{row.category}</TableCell>
-                      <TableCell align="right">{row.rating.count}</TableCell>
+                      <TableCell align="right">{row.Category}</TableCell>
+                      <TableCell align="right">
+                        {row.Properties.Weight}
+                      </TableCell>
                       <TableCell align="right">{row.id}</TableCell>
-                      <TableCell align="right">{row.price}</TableCell>
+                      <TableCell align="right">{row.Price}</TableCell>
                       <TableCell align="right">
                         <button
                           className="edit-btn"
