@@ -5,7 +5,14 @@ import ProductInfoForm from "../AddProduct/ProductInfoForm";
 import ProductPricing from "../AddProduct/ProductPricing";
 import EditProductInfo from "./EditProductInfo";
 import EditPricing from "./EditPricing";
+import axios from "axios";
 export default function EditProduct() {
+  const updateData = async () => {
+    const res = await axios.post(
+      "http://localhost:8080/products/editproductdata",
+      editFormData
+    );
+  };
   const data = useLocation();
 
   const [editFormData, setEditFormData] = useState(data.state);
@@ -31,13 +38,7 @@ export default function EditProduct() {
           editFormData={editFormData}
           setEditFormData={setEditFormData}
         />
-        <button
-          onClick={() => {
-            console.log(editFormData);
-          }}
-        >
-          Save
-        </button>
+        <button onClick={updateData}>Save</button>
       </Box>
     </div>
   );

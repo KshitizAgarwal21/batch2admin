@@ -26,9 +26,9 @@ export default function EditProductInfo(props) {
               <label className="product-form-label">Name</label>
               <input
                 type="text"
-                name="name"
+                name="Name"
                 className="product-form-input"
-                placeholder={item.title}
+                placeholder={item.Name}
                 onChange={handleChange}
               ></input>
             </div>
@@ -36,9 +36,9 @@ export default function EditProductInfo(props) {
               <label className="product-form-label">Weight</label>
               <input
                 type="text"
-                name="weight"
+                name="Weight"
                 className="product-form-input"
-                placeholder={item.rating.count}
+                placeholder={item.Properties.Weight}
                 onChange={handleChange}
               ></input>
             </div>
@@ -50,7 +50,7 @@ export default function EditProductInfo(props) {
               <select
                 className="product-form-input"
                 onChange={handleChange}
-                name="size"
+                name="Sizes"
               >
                 <option>1</option>
                 <option>2</option>
@@ -60,9 +60,9 @@ export default function EditProductInfo(props) {
               <label className="product-form-label">Category</label>
               <input
                 type="text"
-                name="category"
+                name="Category"
                 className="product-form-input"
-                placeholder={item.category}
+                placeholder={item.Category}
                 onChange={handleChange}
               ></input>
             </div>
@@ -73,9 +73,9 @@ export default function EditProductInfo(props) {
               <label className="product-form-label">Description</label>
               <input
                 type="text"
-                name="description"
+                name="Description"
                 className="product-form-input"
-                placeholder={item.description}
+                placeholder={item.Description}
                 onChange={handleChange}
               ></input>
             </div>

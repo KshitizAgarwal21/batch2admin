@@ -26,9 +26,9 @@ export default function EditPricing(props) {
             <label className="product-form-label">Price</label>
             <input
               type="number"
-              name="price"
+              name="Price"
               className="product-form-input"
-              placeholder={item.price}
+              placeholder={item.Price}
               onChange={handleChange}
             ></input>
           </div>
@@ -36,9 +36,9 @@ export default function EditPricing(props) {
             <label className="product-form-label">Tags</label>
             <input
               type="text"
-              name="tags"
+              name="Tags"
               className="product-form-input"
-              placeholder={item.rating.rate}
+              placeholder={item.Tags}
               onChange={handleChange}
             ></input>
           </div>
@@ -50,7 +50,7 @@ export default function EditPricing(props) {
             <select
               className="product-form-input"
               onChange={handleChange}
-              name="currency"
+              name="Currency"
             >
               <option>1</option>
               <option>2</option>
@@ -60,7 +60,7 @@ export default function EditPricing(props) {
             <label className="product-form-label">SKU</label>
             <input
               type="text"
-              name="sku"
+              name="SKU"
               className="product-form-input"
               placeholder={item.id}
               onChange={handleChange}
