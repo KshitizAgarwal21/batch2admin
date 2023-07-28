@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import card from "../../Assets/card.png";
 
 import { useOutletContext } from "react-router-dom";
 import { ProductsList } from "../../redux/ProductList/action";
@@ -111,6 +112,7 @@ export default function ProductList(props) {
     // dispatch(ProductsList());
   }, []);
   // useEffect(() => {}, [productData]);
+
   return (
     <div>
       <h2 style={{ color: "#6e39cb" }}>Product List</h2>
@@ -140,9 +142,7 @@ export default function ProductList(props) {
                     <>
                       <TableCell component="th" scope="row">
                         <img
-                          src={
-                            "../../uploads/myFile-1690300204062-518072315.jpeg"
-                          }
+                          src={`../${row.image}`}
                           className="product-img"
                         ></img>
                         {row.Name}
