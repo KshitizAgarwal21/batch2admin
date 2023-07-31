@@ -8,10 +8,23 @@ import EditPricing from "./EditPricing";
 import axios from "axios";
 export default function EditProduct() {
   const updateData = async () => {
-    const res = await axios.post(
+    const res = await axios.put(
       "http://localhost:8080/products/editproductdata",
       editFormData
     );
+  };
+
+  const deleteData = async () => {
+    try {
+      const res = await axios.delete(
+        "http://localhost:8080/products/deleteproductdata",
+        { data: editFormData }
+      );
+
+      if (res.status == 200) {
+        alert("deleted successfully");
+      }
+    } catch (e) {}
   };
   const data = useLocation();
 
@@ -39,6 +52,7 @@ export default function EditProduct() {
           setEditFormData={setEditFormData}
         />
         <button onClick={updateData}>Save</button>
+        <button onClick={deleteData}>Delete</button>
       </Box>
     </div>
   );

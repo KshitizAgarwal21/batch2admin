@@ -49,6 +49,7 @@ export default function AddProduct() {
             );
             if (result.status == 200) {
               console.log(result.data);
+              // call another component // success component
             }
           } catch (e) {
             if (e.response.status == 500) {
@@ -84,6 +85,7 @@ export default function AddProduct() {
   };
 
   const handleReset = () => {
+    setProductData({});
     setActiveStep(0);
   };
   return (

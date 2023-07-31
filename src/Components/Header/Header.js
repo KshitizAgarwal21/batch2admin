@@ -2,15 +2,32 @@ import React, { useEffect, useState } from "react";
 import "./header.css";
 import microwave from "../../Assets/microwave.jpeg";
 import { decodeToken } from "react-jwt";
+import axios from "axios";
 export default function Header(props) {
   const handleChange = (e) => {
     props.setSearchItem(e.target.value);
   };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+
+    window.location.href = "http://localhost:3000";
+  };
   const [userData, setUserData] = useState({});
+
+  const getaccountholder = async () => {
+    const res = await axios.get(
+      "http://localhost:8080/user/getaccountholderinfo"
+    );
+    console.log(res.data);
+    if (res.status == 200) {
+      setUserData(res.data);
+    }
+  };
   useEffect(() => {
     const token = localStorage.getItem("token");
     const data = decodeToken(token);
-    setUserData(data);
+    getaccountholder();
+    // setUserData(data);
   }, []);
   return (
     <div>
@@ -36,6 +53,9 @@ export default function Header(props) {
               </p>
               <p>{userData.contact}</p>
             </div>
+            <button className="" onClick={handleLogout}>
+              Logout
+            </button>
           </div>
         </div>
       </nav>
