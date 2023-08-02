@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AreaChartComp from "../../Components/AreaChart/AreaChartComp";
 import BarAreaChartComp from "../../Components/BarAreaChart/BarAreaChartComp";
 import MenuItem from "@mui/material/MenuItem";
@@ -11,6 +11,7 @@ import "./home.css";
 import BoltIcon from "@mui/icons-material/Bolt";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import axios from "axios";
 const data2 = [
   {
     name: "Page A",
@@ -55,64 +56,64 @@ const data2 = [
     cnt: 380,
   },
 ];
-const data1 = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
 
 export default function Home() {
   var date = new Date();
   date = date.toString().substring(0, 15);
-  const [age, setAge] = React.useState("");
-
+  const [units, setUnits] = React.useState();
+  const [chart1Data, setChart1Data] = useState([]);
+  const [chart1maindata, setChart1MainData] = useState([]);
+  const [chart2Data, setChart2Data] = useState([]);
+  const [chart2maindata, setChart2MainData] = useState([]);
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setUnits(event.target.value);
   };
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState("Electronics");
 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
   };
+
+  const getChart1Data = async () => {
+    const res = await axios.get("http://localhost:8080/sales/chart1Data");
+
+    console.log(res.data);
+    var arr = [];
+    res.data.forEach((elem) => {
+      arr.push({
+        category: elem.category,
+        maxPrice: elem.sales.maxPrice,
+        minPrice: elem.sales.minPrice,
+        unitsSold: elem.sales.unitsSold,
+      });
+    });
+
+    setChart1Data(arr);
+    setChart1MainData(arr);
+  };
+
+  const getChart2Data = async () => {
+    const res = await axios.post("http://localhost:8080/sales//chart2Data", {
+      category: value,
+    });
+    setChart2Data(res.data);
+    setChart2MainData(res.data);
+  };
+  useEffect(() => {
+    console.log(units);
+    if (units == "All") {
+      setChart1Data(chart1maindata);
+    } else if (units == 1) {
+      setChart1Data(chart1maindata.filter((elem) => elem.unitsSold >= 500));
+    } else {
+      setChart1Data(chart1maindata.filter((elem) => elem.unitsSold <= 500));
+    }
+  }, [units]);
+  useEffect(() => {
+    getChart1Data();
+    getChart2Data();
+  }, []);
+
   return (
     <div>
       <Box
@@ -169,25 +170,26 @@ export default function Home() {
             <p>Sales this Week</p>
 
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
+              <InputLabel id="demo-simple-select-helper-label">
+                Units Sold
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
-                value={age}
-                label="Age"
+                value={units}
+                label="Units Sold"
                 onChange={handleChange}
               >
-                <MenuItem value="">
-                  <em>None</em>
+                <MenuItem value="All">
+                  <em>All</em>
                 </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={1}>{">"}500</MenuItem>
+                <MenuItem value={0}>{"<"}500</MenuItem>
               </Select>
             </FormControl>
           </div>
           <br></br>
-          <AreaChartComp data={data1} />
+          <AreaChartComp data={chart1Data} />
         </Box>
         <Box
           sx={{
@@ -300,7 +302,7 @@ export default function Home() {
             </Tabs>
           </div>
           <br></br>
-          <BarAreaChartComp data={data2} />
+          <BarAreaChartComp data={chart2Data} />
         </Box>
         <Box
           sx={{
