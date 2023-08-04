@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import AreaChartComp from "../../Components/AreaChart/AreaChartComp";
 import BarAreaChartComp from "../../Components/BarAreaChart/BarAreaChartComp";
 import MenuItem from "@mui/material/MenuItem";
@@ -48,7 +48,16 @@ export default function Home() {
     setChart1Data(arr);
     setChart1MainData(arr);
   };
-
+  const totalSales = () => {
+    console.log("test");
+    var sum = 0;
+    chart1Data.forEach((elem) => {
+      sum += elem.unitsSold;
+    });
+    return sum;
+  };
+  const memoisedFunc = useMemo(totalSales, [chart1Data]);
+  const displaySales = memoisedFunc;
   const getChart2Data = async () => {
     const res = await axios.post("http://localhost:8080/sales/chart2Data", {
       category: value,
@@ -89,7 +98,7 @@ export default function Home() {
       >
         <div className="summary-div">
           Total Sales
-          <p className="value">₹12345</p>
+          <p className="value">{displaySales}</p>
           <p className="date">{date}</p>
         </div>
         <div className="summary-div">
