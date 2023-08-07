@@ -3,30 +3,31 @@ import "./header.css";
 import microwave from "../../Assets/microwave.jpeg";
 import { decodeToken } from "react-jwt";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { UsersData } from "../../redux/GetAccountHolder/action";
 export default function Header(props) {
   const handleChange = (e) => {
     props.setSearchItem(e.target.value);
+  };
+  const navigate = useNavigate();
+  const navigateAdmin = () => {
+    navigate("/admin");
   };
   const handleLogout = () => {
     localStorage.removeItem("token");
 
     window.location.href = "http://localhost:3000";
   };
-  const [userData, setUserData] = useState({});
 
-  const getaccountholder = async () => {
-    const res = await axios.get(
-      "http://localhost:8080/user/getaccountholderinfo"
-    );
-    console.log(res.data);
-    if (res.status == 200) {
-      setUserData(res.data);
-    }
-  };
+  const adminData = useSelector((state) => state.UsersData.userData);
+  const dispatch = useDispatch();
   useEffect(() => {
     const token = localStorage.getItem("token");
     const data = decodeToken(token);
-    getaccountholder();
+    if (adminData.length == 0) {
+      dispatch(UsersData());
+    }
     // setUserData(data);
   }, []);
   return (
@@ -49,10 +50,11 @@ export default function Header(props) {
             />
             <div>
               <p>
-                {userData.firstName} {userData.lastName}
+                {adminData.firstName} {adminData.lastName}
               </p>
-              <p>{userData.contact}</p>
+              <p>{adminData.contact}</p>
             </div>
+            <button onClick={navigateAdmin}>Admin Details</button>
             <button className="" onClick={handleLogout}>
               Logout
             </button>
